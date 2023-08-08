@@ -1,23 +1,19 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { postCategories } from "../APIRequest/APIRequest";
 
 const Layout = (props) => {
   const [categories, setCategories] = useState([]);
-  useEffect(() =>{
-
+  useEffect(() => {
     (async () => {
-      let res= await postCategories();
+      let res = await postCategories();
       setCategories(res);
-      
-      
-   })()
-
-
-  },[])
+    })();
+  }, []);
   console.log(categories);
   return (
     <div>
-      <div className="navbar shadow bg-base-100">
+      <div className="navbar fixed z-50 top-0 shadow bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -40,35 +36,30 @@ const Layout = (props) => {
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
-
- {
-
-categories.map((item,index) =>{
-
-  return  <li><a>Item 1</a></li>
-
-})
-
- }             
-             
+              <li><NavLink to={"/"}>Home</NavLink></li>
+              {categories.map((item, index) => {
+                return (
+                  <li  key={index.toString()}>
+                    <NavLink to={"/byCategory/" + item.id}>{item.name}</NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-          {
-
-categories.map((item,index) =>{
-
-  return  <li><a>Item 1</a></li>
-
-})
-
- } 
+          <li><NavLink to={"/"}>Home</NavLink></li>
+            {categories.map((item, index) => {
+              return (
+                <li key={index.toString()}>
+                  <NavLink  to={"/byCategory/" + item.id}>{item.name}</NavLink>
+                </li>
+              );
+            })}
           </ul>
         </div>
-  
       </div>
       {props.children}
     </div>

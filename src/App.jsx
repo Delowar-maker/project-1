@@ -1,16 +1,18 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import ByCategoryPage from "./pages/ByCategoryPage.jsx";
 import DetailsPage from "./pages/DetailsPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 
 const App = () => {
+
+    let {postID} = useParams();
     return (
         <div>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<HomePage/>}/>
-                    <Route path="/byCategory/:id" element={<ByCategoryPage/>}/>
-                    <Route path="/details/:id" element={<DetailsPage/>}/>
+                    <Route path="/byCategory/:categoryID" element={<ByCategoryPage/>}/>
+                    <Route path="/details/:postID" element={<DetailsPage/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
